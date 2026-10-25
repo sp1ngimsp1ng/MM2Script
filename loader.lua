@@ -1,5 +1,5 @@
 -- Sp1ng Hub Loader
-local Core = loadstring(game:HttpGet("MET_TON_LIEN_DU_CORE_ICI"))()
+local Core = loadstring(game:HttpGet("https://raw.githubusercontent.com/sp1ngimsp1ng/MM2Script/refs/heads/main/core.lua"))()
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
