@@ -33,6 +33,7 @@ Window:EditOpenButton({
     })
 })
 
+local StartTab = Window:Tab({ Title = "Start", Icon = "home" })
 local PlayerTab = Window:Tab({ Title = "Player", Icon = "user" })
 local ESPTab = Window:Tab({ Title = "ESP", Icon = "eye" })
 local AutomationsTab = Window:Tab({ Title = "Automations", Icon = "bot" })
@@ -45,6 +46,43 @@ local function notify(title, content)
         Icon = "info"
     })
 end
+
+StartTab:Paragraph({
+    Title = "Information",
+    Desc = "Roblox Username: Rafoufou281117"
+})
+
+StartTab:Button({
+    Title = "Copy Discord Link",
+    Callback = function()
+        pcall(function() setclipboard("https://discord.gg/3xErtdKr2D") end)
+        notify("Success", "Discord link copied to clipboard!")
+    end
+})
+
+StartTab:Button({
+    Title = "Copy YouTube Link",
+    Callback = function()
+        pcall(function() setclipboard("https://youtube.com/@scr1ptSp1ng") end)
+        notify("Success", "YouTube link copied to clipboard!")
+    end
+})
+
+StartTab:Button({
+    Title = "Copy ScriptBlox Link",
+    Callback = function()
+        pcall(function() setclipboard("https://scriptblox.com/u/Sp1ng") end)
+        notify("Success", "ScriptBlox link copied to clipboard!")
+    end
+})
+
+StartTab:Button({
+    Title = "Copy Rscripts Link",
+    Callback = function()
+        pcall(function() setclipboard("https://rscripts.net/@Sp1ng") end)
+        notify("Success", "Rscripts link copied to clipboard!")
+    end
+})
 
 local playerNames = {}
 for _, p in ipairs(Players:GetPlayers()) do
@@ -70,10 +108,12 @@ PlayerTab:Dropdown({
 
 PlayerTab:Slider({
     Title = "Walk Speed",
-    Min = 16,
-    Max = 150,
-    Default = 16,
-    Increment = 1,
+    Value = {
+        Min = 16,
+        Max = 150,
+        Default = 16,
+    },
+    Step = 1,
     Callback = function(v)
         Core.MovementSettings.WalkSpeed = v
         local hum = Core.getHumanoid()
@@ -109,13 +149,13 @@ PlayerTab:Toggle({
 })
 
 PlayerTab:Button({
-    Title = "Fling Murder",
+    Title = "Fling Murderer",
     Callback = function()
         local murderer = Core.getMurderer()
         if murderer then
             task.spawn(function() Core.flingPlayer(murderer) end)
         else
-            notify("Erreur", "Aucun Murderer trouvé !")
+            notify("Error", "No Murderer found!")
         end
     end
 })
@@ -127,7 +167,7 @@ PlayerTab:Button({
         if sheriff then
             task.spawn(function() Core.flingPlayer(sheriff) end)
         else
-            notify("Erreur", "Aucun Sheriff trouvé !")
+            notify("Error", "No Sheriff found!")
         end
     end
 })
@@ -235,7 +275,7 @@ AutomationsTab:Toggle({
 })
 
 AutomationsTab:Toggle({
-    Title = "Auto Shoot Murder",
+    Title = "Auto Shoot Murderer",
     Default = false,
     Callback = function(v)
         Core.AutomationsSettings.AutoShootMurder = v
@@ -283,4 +323,4 @@ UserInputService.InputBegan:Connect(function(input, gp)
     end
 end)
 
-notify("Sp1ng Hub", "Chargé avec succès !")
+notify("Sp1ng Hub", "Successfully loaded!")
