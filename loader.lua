@@ -46,6 +46,28 @@ local function notify(title, content)
     })
 end
 
+local playerNames = {}
+for _, p in ipairs(Players:GetPlayers()) do
+    if p ~= LocalPlayer then
+        table.insert(playerNames, p.Name)
+    end
+end
+
+PlayerTab:Dropdown({
+    Title = "TP Player",
+    Values = playerNames,
+    Value = "",
+    Callback = function(v)
+        local target = Players:FindFirstChild(v)
+        if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+            local hrp = Core.getHRP()
+            if hrp then
+                hrp.CFrame = target.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+            end
+        end
+    end
+})
+
 PlayerTab:Slider({
     Title = "Walk Speed",
     Min = 16,
